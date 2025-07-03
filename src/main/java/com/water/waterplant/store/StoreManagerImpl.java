@@ -4,8 +4,9 @@ import com.water.waterplant.vo.Order;
 import com.water.waterplant.vo.Store;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class StoreManagerImpl implements StoreManager {
 
     public Store store;
@@ -13,8 +14,8 @@ public class StoreManagerImpl implements StoreManager {
     @PostConstruct
     public void init(){
         store = new Store();
-        store.setBubbleCans(10);
-        store.setCoolCans(10);
+        store.setBubbleCans(100);
+        store.setCoolCans(100);
     }
 
 

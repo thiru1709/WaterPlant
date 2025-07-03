@@ -1,7 +1,9 @@
 package com.water.waterplant.vo;
 
+import com.water.waterplant.enums.ORDERSTATUS;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -11,9 +13,11 @@ import java.util.Date;
 @ToString
 public class Order {
     private int orderId;
-    private Date timeDeliveryRequired;
+    private String timeDeliveryRequired;
     private int bubbleCanQuantity;
     private int coolCanQuantity;
-    private String orderStatus;
+    private ORDERSTATUS orderStatus;
     private Customer customer;
 }
+
+

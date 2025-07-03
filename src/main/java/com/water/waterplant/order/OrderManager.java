@@ -10,4 +10,6 @@ public interface OrderManager {
     public List<Order> pendingOrders();
     public List<Order> fulfilledOrders();
     public boolean fulfillOrder(Order order);
+    public boolean rejectOrder(Order order);
+    public List<Order> rejectedOrders();
 }

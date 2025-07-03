@@ -8,6 +8,7 @@ public class TripController {
 
     @PostMapping
     public String startTrip(){
+        return "Trip started";
 
     }
 
