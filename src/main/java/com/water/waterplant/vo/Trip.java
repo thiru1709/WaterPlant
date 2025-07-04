@@ -1,7 +1,9 @@
 package com.water.waterplant.vo;
 
+import com.water.waterplant.enums.TRIPSTATUS;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -9,10 +11,8 @@ public class Trip {
 
     private int driverId;
     private int vehicleId;
-    private String startTime;
-    private String endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private List<Order> orderList;
-    private String status;
-    private String amountCollected;
-    private String totalAmountTobeCollected;
+    private TRIPSTATUS status;
 }

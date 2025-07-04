@@ -1,5 +1,6 @@
 package com.water.waterplant.vo;
 
+import com.water.waterplant.enums.VEHICLESTATUS;
 import lombok.Data;
 
 import java.util.Date;
@@ -12,5 +13,5 @@ public class Vehicle {
     private int bubbleCans;
     private int coolCans;
     private int capacity;
-    private int status;
+    private VEHICLESTATUS status;
 }
