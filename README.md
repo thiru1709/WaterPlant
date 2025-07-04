@@ -2,14 +2,17 @@ Input fields
 	Customer(Name,phonenumber,address)
 	order(orderId,timeforfulfillment,bubblecan quantity,coolcan quantity,status,customer)
 	Store(bubblecans,coolcans)
-	Vehicle(vehicleId,bubblecan quantity,coolcan quantity,capacity,Driver id,start time,end time,list<orders>,status)
-	Trip -> vehicle,list of orders,Driver name,start time,endtime,status, amount collected, total expected
+	Vehicle(vehicleId,bubblecan quantity,coolcan quantity,capacity,,status)
+	Trip -> vehicle id,list of orders,Driver Id,start time,endtime,status, amount collected, total expected,list<orders> ordertobefulfolled	
 	Driver -> id, name, status
 
 ORder -> user details -> order details
 check if order can be fulfilled
 update store
 place the order
+reject the order
+return list of pending orders
+return list of rejected orders
 
 
 pending orders -> add
@@ -33,4 +36,9 @@ Vehicle
 order is completed -> update the order status and remove the order from pending
 
 
+order status -> SUBMITTED,ACCEPTED,INPROGRESS,COMPLETED,UNFULFILLED
+VEHICLE STATUS -> READY,RUNNING,BROKEN,ONBREAK
+DRIVER STATUS -> READY,RUNNING,ONBREAK,ONLEAVE
 
+
+if the order is rejected , can we pick the order once we the store is updated?
