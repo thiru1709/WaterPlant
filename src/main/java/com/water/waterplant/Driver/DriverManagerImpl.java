@@ -1,5 +1,6 @@
 package com.water.waterplant.Driver;
 
+import com.water.waterplant.common.CommonHelper;
 import com.water.waterplant.enums.DRIVERSTATUS;
 import com.water.waterplant.vo.Driver;
 import jakarta.annotation.PostConstruct;
@@ -17,7 +18,7 @@ public class DriverManagerImpl implements DriverManager{
     @PostConstruct
     public List<Driver> init(){
         Driver driver = new Driver();
-        driver.setDriverId(new SecureRandom().nextInt(1, 9999999));
+        driver.setDriverId(CommonHelper.generateNewId());
         driver.setDriverName("Basha");
         driver.setStatus(DRIVERSTATUS.READY);
         driverList.add(driver);

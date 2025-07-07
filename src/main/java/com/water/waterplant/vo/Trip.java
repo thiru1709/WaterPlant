@@ -9,6 +9,7 @@ import java.util.List;
 @Data
 public class Trip {
 
+    private int tripId;
     private int driverId;
     private int vehicleId;
     private LocalDateTime startTime;

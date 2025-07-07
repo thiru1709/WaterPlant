@@ -9,4 +9,5 @@ public interface TripManager {
     public String startTrip(Trip trip);
     public List<Trip> getTrips(TRIPSTATUS tripstatus);
     public String endTrip(Trip trip);
+    public Trip getTripById(int id);
 }
