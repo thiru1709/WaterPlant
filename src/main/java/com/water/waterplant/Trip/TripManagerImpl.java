@@ -46,7 +46,7 @@ public class TripManagerImpl implements TripManager{
 
     @Override
     public String endTrip(Trip trip) {
-        tripList.remove(trip);
+        trip.setStatus(TRIPSTATUS.COMPLETED);
         return "Trip ended";
     }
 

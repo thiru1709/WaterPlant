@@ -4,6 +4,7 @@ import com.water.waterplant.Driver.DriverManager;
 import com.water.waterplant.Vehicle.VehicleManager;
 import com.water.waterplant.common.CommonHelper;
 import com.water.waterplant.enums.DRIVERSTATUS;
+import com.water.waterplant.enums.ORDERSTATUS;
 import com.water.waterplant.enums.TRIPSTATUS;
 import com.water.waterplant.enums.VEHICLESTATUS;
 import com.water.waterplant.order.OrderManager;
@@ -48,7 +49,7 @@ public class TripController {
         trip.setTripId(CommonHelper.generateNewId());
         trip.setStatus(TRIPSTATUS.START);
         Vehicle vehicle = vehicleManager.getVehicleDetailsById(trip.getVehicleId());
-        List<Order> pendingOrders = orderManager.pendingOrders();
+        List<Order> pendingOrders = orderManager.ordersByStatus(ORDERSTATUS.ACCEPTED);
         List<Order> ordersThatCanBeFulfilled = pendingOrders;
 //        int count = vehicle.getCapacity();
 //        for(Order order : pendingOrders){

@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 public class VehicleManagerImpl implements VehicleManager{
 
-    private List<Vehicle> vehicleList = new ArrayList<>();
+    private final List<Vehicle> vehicleList = new ArrayList<>();
 
     @PostConstruct
     public void init(){

@@ -4,15 +4,10 @@ import com.water.waterplant.enums.ORDERSTATUS;
 import com.water.waterplant.store.StoreManager;
 import com.water.waterplant.vo.Order;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpResponse;
 import java.security.SecureRandom;
 import java.util.List;
 
@@ -39,10 +34,9 @@ public class OrderController {
             storeManager.updateStock(order);
             //place the order
             orderManager.placeOrder(order);
-            System.out.println("Pending orders " + orderManager.pendingOrders());
+            System.out.println("Pending orders " + orderManager.ordersByStatus(ORDERSTATUS.ACCEPTED));
 
         }else{
-            order.setOrderStatus(ORDERSTATUS.REJECTED);
             orderManager.rejectOrder(order);
             System.out.println("Order cannot be fulfilled");
             return new ResponseEntity<>("We are unable to process your order at this time, Please try after some time"
@@ -51,14 +45,10 @@ public class OrderController {
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/pendingOrders")
-    public ResponseEntity<List<Order>> listOfPendingorders(){
-        return new ResponseEntity<>(orderManager.pendingOrders(),HttpStatus.OK);
-    }
-
-    @GetMapping("/rejectedOrders")
-    public ResponseEntity<List<Order>> listOfRejectedorders(){
-        return new ResponseEntity<>(orderManager.rejectedOrders(),HttpStatus.OK);
+    @GetMapping("/ordersByStatus")
+    public ResponseEntity<List<Order>> ordersByStatus(@RequestParam String orderStatus){
+        ORDERSTATUS orderstatus = ORDERSTATUS.valueOf(orderStatus);
+        return new ResponseEntity<>(orderManager.ordersByStatus(orderstatus),HttpStatus.OK);
     }
 
     private static void generateOrderId(Order order) {

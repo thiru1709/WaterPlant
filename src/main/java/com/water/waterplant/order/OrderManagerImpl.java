@@ -18,8 +18,6 @@ import java.util.random.RandomGenerator;
 public class OrderManagerImpl implements OrderManager{
 
     private final List<Order> orderList = new ArrayList<>();
-    private final List<Order> fulfilledOrderList = new ArrayList<>();
-    private final List<Order> rejectedOrderList = new ArrayList<>();
 
     @PostConstruct
     public void init(){
@@ -47,33 +45,21 @@ public class OrderManagerImpl implements OrderManager{
         return true;
     }
 
-
-
-    @Override
-    public List<Order> pendingOrders() {
-        return orderList;
-    }
-
-    @Override
-    public List<Order> fulfilledOrders() {
-        return fulfilledOrderList;
-    }
-
     @Override
     public boolean fulfillOrder(Order order) {
-        orderList.remove(order);
-        fulfilledOrderList.add(order);
+        order.setOrderStatus(ORDERSTATUS.COMPLETED);
         return false;
     }
 
     @Override
     public boolean rejectOrder(Order order) {
-        rejectedOrderList.add(order);
+        order.setOrderStatus(ORDERSTATUS.REJECTED);
+        orderList.add(order);
         return true;
     }
 
     @Override
-    public List<Order> rejectedOrders() {
-        return rejectedOrderList;
+    public List<Order> ordersByStatus(ORDERSTATUS orderstatus) {
+        return orderList.stream().filter(order -> order.getOrderStatus().equals(orderstatus)).toList();
     }
 }
