@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DriverManagerImpl implements DriverManager{
@@ -34,5 +35,11 @@ public class DriverManagerImpl implements DriverManager{
     @Override
     public List<Driver> getAvailableDrivers() {
         return driverList;
+    }
+
+    @Override
+    public Driver getDriverById(int driverId) {
+        Optional<Driver> optionalDriver = driverList.stream().filter(driver -> driver.getDriverId() == driverId).findAny();
+        return optionalDriver.orElse(null);
     }
 }

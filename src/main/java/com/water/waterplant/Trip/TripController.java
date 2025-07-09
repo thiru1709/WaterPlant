@@ -48,7 +48,7 @@ public class TripController {
         }
         trip.setTripId(CommonHelper.generateNewId());
         trip.setStatus(TRIPSTATUS.START);
-        Vehicle vehicle = vehicleManager.getVehicleDetailsById(trip.getVehicleId());
+//        Vehicle vehicle = vehicleManager.getVehicleDetailsById(trip.getVehicleId());
         List<Order> pendingOrders = orderManager.ordersByStatus(ORDERSTATUS.ACCEPTED);
         List<Order> ordersThatCanBeFulfilled = pendingOrders;
 //        int count = vehicle.getCapacity();
@@ -61,6 +61,8 @@ public class TripController {
 //                break;
 //            }
 //        }
+        ordersThatCanBeFulfilled.forEach(order -> orderManager.updateOrderStatus(order,ORDERSTATUS.INPROGRESS));
+
         trip.setOrderList(ordersThatCanBeFulfilled);
         trip.setStartTime(LocalDateTime.now());
         tripManager.startTrip(trip);
@@ -75,6 +77,11 @@ public class TripController {
             return new ResponseEntity<>("Trip end failed",HttpStatus.INTERNAL_SERVER_ERROR);
         }
         tripManager.endTrip(tripById);
+        tripById.getOrderList().forEach(order -> orderManager.fulfillOrder(order));
+        Driver driverById = driverManager.getDriverById(tripById.getDriverId());
+        driverById.setStatus(DRIVERSTATUS.ONBREAK);
+        Vehicle vehicleDetailsById = vehicleManager.getVehicleDetailsById(tripById.getVehicleId());
+        vehicleDetailsById.setStatus(VEHICLESTATUS.ONBREAK);
         return new ResponseEntity<>("Trip successfully ended",HttpStatus.OK);
 
     }
@@ -93,8 +100,10 @@ public class TripController {
         if(availableVehicle.isEmpty()){
             return false;
         }
-        System.out.println(availableVehicle.get());
-        trip.setVehicleId(availableVehicle.get().getVehicleId());
+        Vehicle vehicle = availableVehicle.get();
+        vehicle.setStatus(VEHICLESTATUS.RUNNING);
+        System.out.println(vehicle);
+        trip.setVehicleId(vehicle.getVehicleId());
         return true;
     }
 
@@ -104,8 +113,10 @@ public class TripController {
         if(availableDriver.isEmpty()){
             return false;
         }
-        System.out.println(availableDriver.get());
-        trip.setDriverId(availableDriver.get().getDriverId());
+        Driver driver = availableDriver.get();
+        driver.setStatus(DRIVERSTATUS.RUNNING);
+        System.out.println(driver);
+        trip.setDriverId(driver.getDriverId());
         return true;
     }
 

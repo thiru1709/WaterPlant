@@ -11,4 +11,6 @@ public interface OrderManager {
     public boolean fulfillOrder(Order order);
     public boolean rejectOrder(Order order);
     public List<Order> ordersByStatus(ORDERSTATUS orderstatus);
+
+    void updateOrderStatus(Order order, ORDERSTATUS orderstatus);
 }

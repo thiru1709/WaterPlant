@@ -62,4 +62,9 @@ public class OrderManagerImpl implements OrderManager{
     public List<Order> ordersByStatus(ORDERSTATUS orderstatus) {
         return orderList.stream().filter(order -> order.getOrderStatus().equals(orderstatus)).toList();
     }
+
+    @Override
+    public void updateOrderStatus(Order order, ORDERSTATUS orderstatus) {
+        order.setOrderStatus(orderstatus);
+    }
 }
